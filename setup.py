@@ -11,8 +11,6 @@ setup(
         "pypdf==4.0.0",
         "pytesseract==0.3.13",
         # "Pillow==11.0.0",  # Install separately on Windows with Python 3.14
-        "httpx==0.24.1",
-        "openai==1.3.0",
         "msgraph-sdk==1.0.0",
         "azure-identity==1.15.0",
         "python-dotenv==1.0.0",

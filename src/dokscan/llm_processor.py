@@ -1,12 +1,10 @@
-import openai
+import requests
 import json
 from .config import load_config
 
 config = load_config()
 
-client = openai.OpenAI(api_key=config['openai_api_key'])
-
-def extract_document_data(text, model="gpt-4"):
+def extract_document_data(text, model="llama3.2"):
     prompt = f"""
     Extract the following information from the document text. Output as JSON.
 
@@ -28,10 +26,14 @@ def extract_document_data(text, model="gpt-4"):
 
     Text: {text[:4000]}  # Limit text length
     """
-    response = client.chat.completions.create(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0
-    )
-    result = response.choices[0].message.content
-    return json.loads(result)
+    data = {
+        "model": model,
+        "messages": [{"role": "user", "content": prompt}],
+        "stream": False
+    }
+    response = requests.post("http://localhost:11434/api/chat", json=data)
+    if response.status_code == 200:
+        result = response.json()["message"]["content"]
+        return json.loads(result)
+    else:
+        raise Exception(f"Ollama error: {response.text}")

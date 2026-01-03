@@ -17,7 +17,7 @@ class FileHandler(FileSystemEventHandler):
             time.sleep(5)  # Simple wait, could be improved
             asyncio.run(process_file(event.src_path, config))
 
-if __name__ == "__main__":
+def main():
     observer = Observer()
     observer.schedule(FileHandler(), config['hotfolder_path'], recursive=False)
     observer.start()
@@ -27,3 +27,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
+
+if __name__ == "__main__":
+    main()
