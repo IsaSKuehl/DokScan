@@ -23,7 +23,9 @@ Du brauchst Python und Tesseract auf deinem Gerät.
 2. Entpacke die ZIP-Datei in einen Ordner, z.B. "DokScan".
 3. Öffne ein Terminal (Windows: Suche nach "cmd" oder "PowerShell"; Raspberry Pi: Terminal-App).
 4. Gehe in den DokScan-Ordner: `cd Pfad/zum/DokScan`
-5. Installiere die nötigen Programme: `pip install -r requirements.txt`
+6. Installiere die nötigen Programme: 
+   - Windows: `python -m pip install -r requirements.txt`
+   - Raspberry Pi: `python3 -m pip install -r requirements.txt`
 
 ### Schritt 3: Konfiguration
 1. Kopiere die Datei `.env.example` zu `.env` (rechtsklick > Kopieren, dann Einfügen und umbenennen).
@@ -42,7 +44,9 @@ Du brauchst Python und Tesseract auf deinem Gerät.
    - Folge der Microsoft Graph Setup-Anleitung unten.
 
 ### Schritt 4: Starten
-- Im Terminal: `python src/main.py`
+- Im Terminal: 
+  - Windows: `python src/main.py`
+  - Raspberry Pi: `python3 src/main.py`
 - Es läuft jetzt und wartet auf neue Dateien im Hotfolder.
 
 ### Schritt 5: Testen
@@ -87,7 +91,9 @@ sudo apt install tesseract-ocr tesseract-ocr-deu
 ### Installation
 
 1. Clone the repo
-2. Install dependencies: `pip install -r requirements.txt`
+2. Install dependencies: 
+   - Windows: `python -m pip install -r requirements.txt`
+   - Linux/Raspberry Pi: `python3 -m pip install -r requirements.txt`
 3. Copy `.env.example` to `.env` and fill in your keys
 4. Edit `config/config.yaml` with your paths
 
