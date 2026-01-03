@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "document_type": {
+      "type": "string",
+      "enum": ["Steuerbescheid", "Handwerkerrechnung", "Versicherung", "Mahnung", "Vertrag", "Sonstiges"]
+    },
+    "issuer": {"type": "string"},
+    "document_date": {"type": ["string", "null"], "format": "date"},
+    "amount_total": {"type": ["number", "null"]},
+    "currency": {"type": ["string", "null"]},
+    "due_date": {"type": ["string", "null"], "format": "date"},
+    "iban": {"type": ["string", "null"]},
+    "invoice_number": {"type": ["string", "null"]},
+    "is_tax_relevant": {"type": "boolean"},
+    "tax_category": {
+      "type": ["string", "null"],
+      "enum": ["Einkommensteuer", "Werbungskosten", "Haushaltnahe DL", "Betriebsausgabe", "Sonstiges"]
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}
+    },
+    "summary": {
+      "type": "array",
+      "items": {"type": "string"},
+      "maxItems": 8
+    }
+  },
+  "required": ["document_type", "issuer", "is_tax_relevant", "confidence", "summary"]
+}
