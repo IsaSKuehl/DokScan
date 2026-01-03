@@ -11,7 +11,7 @@ def create_report_pdf(data, original_path, output_path):
 
     pdf.cell(200, 10, txt="Summary:", ln=True)
     for bullet in data['summary']:
-        pdf.cell(200, 10, txt=f"• {bullet}", ln=True)
+        pdf.cell(200, 10, txt=f"- {bullet}", ln=True)
 
     pdf.cell(200, 10, txt="Key Data:", ln=True)
     pdf.cell(200, 10, txt=f"Type: {data['document_type']}", ln=True)

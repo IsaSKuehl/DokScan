@@ -37,7 +37,18 @@ def extract_document_data(text, model="llama3.2"):
     if response.status_code == 200:
         result = response.json()["message"]["content"]
         try:
-            return json.loads(result)
+            parsed = json.loads(result)
+            # Ensure all required keys are present
+            required_keys = ['document_type', 'issuer', 'document_date', 'amount_total', 'currency', 'due_date', 'iban', 'invoice_number', 'is_tax_relevant', 'tax_category', 'confidence', 'summary']
+            for key in required_keys:
+                if key not in parsed:
+                    if key == 'summary':
+                        parsed[key] = ["Keine Zusammenfassung verfügbar."]
+                    elif key == 'confidence':
+                        parsed[key] = {}
+                    else:
+                        parsed[key] = None
+            return parsed
         except json.JSONDecodeError:
             # Fallback: return a basic dict if JSON parsing fails
             return {
