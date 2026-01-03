@@ -24,7 +24,9 @@ Du brauchst Python und Tesseract auf deinem Gerät.
 3. Öffne ein Terminal (Windows: Suche nach "cmd" oder "PowerShell"; Raspberry Pi: Terminal-App).
 4. Gehe in den DokScan-Ordner: `cd Pfad/zum/DokScan`
 6. Installiere die nötigen Programme: 
-   - Windows: `python -m pip install -r requirements.txt`
+   - Windows: 
+     - Zuerst: `python -m pip install Pillow`
+     - Dann: `python -m pip install -r requirements.txt`
    - Raspberry Pi: `python3 -m pip install -r requirements.txt`
 
 ### Schritt 3: Konfiguration
@@ -92,7 +94,9 @@ sudo apt install tesseract-ocr tesseract-ocr-deu
 
 1. Clone the repo
 2. Install dependencies: 
-   - Windows: `python -m pip install -r requirements.txt`
+   - Windows: 
+     - First: `python -m pip install Pillow`
+     - Then: `python -m pip install -r requirements.txt`
    - Linux/Raspberry Pi: `python3 -m pip install -r requirements.txt`
 3. Copy `.env.example` to `.env` and fill in your keys
 4. Edit `config/config.yaml` with your paths
