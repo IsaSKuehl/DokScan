@@ -6,7 +6,7 @@ config = load_config()
 
 def extract_document_data(text, model="llama3.2"):
     prompt = f"""
-    Extract the following information from the document text. Output as JSON.
+    Extract the following information from the document text. Output ONLY valid JSON, no other text.
 
     Document types: Steuerbescheid, Handwerkerrechnung, Versicherung, Mahnung, Vertrag, Sonstiges
 
@@ -25,6 +25,8 @@ def extract_document_data(text, model="llama3.2"):
     - summary: list of up to 8 bullet points
 
     Text: {text[:4000]}  # Limit text length
+
+    JSON:
     """
     data = {
         "model": model,
@@ -34,6 +36,23 @@ def extract_document_data(text, model="llama3.2"):
     response = requests.post("http://localhost:11434/api/chat", json=data)
     if response.status_code == 200:
         result = response.json()["message"]["content"]
-        return json.loads(result)
+        try:
+            return json.loads(result)
+        except json.JSONDecodeError:
+            # Fallback: return a basic dict if JSON parsing fails
+            return {
+                "document_type": "Sonstiges",
+                "issuer": "Unbekannt",
+                "document_date": None,
+                "amount_total": None,
+                "currency": None,
+                "due_date": None,
+                "iban": None,
+                "invoice_number": None,
+                "is_tax_relevant": False,
+                "tax_category": None,
+                "confidence": {},
+                "summary": ["Fehler beim Parsen der Antwort."]
+            }
     else:
         raise Exception(f"Ollama error: {response.text}")

@@ -56,4 +56,7 @@ async def process_file(file_path, config):
 
     except Exception as e:
         logger.error(f"Error processing {file_path}: {e}")
-        shutil.move(file_path, config['failed_path'])
+        try:
+            shutil.move(file_path, config['failed_path'])
+        except PermissionError:
+            logger.warning(f"Could not move {file_path} to failed folder due to permission error")
